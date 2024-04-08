@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<button id="rollButton">
+  Begin Dicing!
+</button>
+
+<script>
+  // Function to roll a fair dice
+  function rollFairDice(sides) {
+    return Math.floor(Math.random() * sides) + 1;
+  }
+
+  // Function to roll an unfair dice
+  function rollUnfairDice(sides, unfairProbability) {
+    let roll = Math.random();
+    if (roll < unfairProbability) {
+      return sides; // Return the highest number
+    } else {
+      return Math.floor(Math.random() * (sides - 1)) + 1; // Roll other numbers fairly
+    }
+  }
+
+  // Function to handle user input and roll dice
+  function rollDice() {
+    const numOfDice = parseInt(prompt("Enter the number of dice to roll:"));
+    if (isNaN(numOfDice) || numOfDice <= 0) {
+      alert("Please enter a valid number of dice.");
+      return;
+    }
+
+    const sides = parseInt(prompt("Enter the number of sides for each dice:"));
+    if (isNaN(sides) || sides <= 0) {
+      alert("Please enter a valid number of sides.");
+      return;
+    }
+
+    const isUnfair = confirm("Would you like to make one of the dice unfair?");
+    let unfairIndex = -1;
+    let unfairProbability = 0.0;
+    if (isUnfair) {
+      unfairIndex = parseInt(prompt("Enter the index (starting from 1) of the unfair dice:"));
+      if (isNaN(unfairIndex) || unfairIndex < 1 || unfairIndex > numOfDice) {
+        alert("Please enter a valid index for the unfair dice.");
+        return;
+      }
+      unfairProbability = parseFloat(prompt("Enter the probability of rolling the highest number for the unfair dice (between 0 and 1):"));
+      if (isNaN(unfairProbability) || unfairProbability < 0 || unfairProbability > 1) {
+        alert("Please enter a valid probability.");
+        return;
+      }
+    }
+
+    const results = [];
+    for (let i = 0; i < numOfDice; i++) {
+      if (isUnfair && i === unfairIndex - 1) {
+        results.push(rollUnfairDice(sides, unfairProbability));
+      } else {
+        results.push(rollFairDice(sides));
+      }
+    }
+
+    alert("Dice rolls: " + results.join(", "));
+  }
+
+  // Roll dice when the button is clicked
+  document.getElementById("rollButton").addEventListener("click", rollDice);
+
+</script>
+</body>
+</html>
