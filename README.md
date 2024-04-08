@@ -1,5 +1,5 @@
 - 👋 Hi, I’m @Tyrell-Nexus
-- 👀 I’m interested in Technological Solution for the 3rd world, SAAS, Data.
+- 👀 I’m interested in Technological Solutions for the 3rd world, SAAS, Data.
 - 🌱 I’m currently learning Python
 
 <!---
